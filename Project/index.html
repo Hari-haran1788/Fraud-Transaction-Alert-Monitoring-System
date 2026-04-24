@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strapay Elite | Digital Vault</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="landing-page">
+        <header class="elite-header">
+            <div class="container-full navbar">
+                <div class="stb-logo">
+                    <div class="shield">
+                        <img src="images/FinalLogo.png" alt="Strapay Logo" class="shield-logo">
+                    </div>
+
+                </div>
+                <div class="header-right">
+                    <button class="header-combined-pill" onclick="openAuth('login')">LOGIN | REGISTER</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="container-full hero-flex">
+                <div class="hero-text">
+                    <span class="elite-tag">ELITE EXPERIENCE</span>
+                    <h1 class="main-title">Strategic Security<br><span>Digital Payment</span></h1>
+                    <p class="hero-p">Register now to claim your ₹50,000 Welcome Bonus instantly. India's premier
+                        digital hub for elite banking.</p>
+                    <button class="cta-primary" onclick="openAuth('reg')">CREATE ACCOUNT NOW <i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="hero-image-box">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80"
+                        class="hero-img" alt="Banking">
+                </div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <p>© 2026 Strapay Ltd. India. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <div id="dashboard" style="display: none;">
+        <header class="elite-header">
+            <div class="container-full navbar">
+                <div class="stb-logo">
+                    <div class="shield">
+                        <img src="images/FinalLogo.png" alt="Strapay Logo" class="shield-logo">
+                    </div>
+                </div>
+                <button class="logout-pill" onclick="handleLogout()">Logout 🚪</button>
+            </div>
+        </header>
+        <div class="dash-content container-full">
+            <div class="bal-gradient-card">
+                <p class="holder-label">Account Holder: <span id="u-dash-name">...</span></p>
+                <div class="bal-flex">
+                    <span id="d-balance" class="bal-val">₹ 50,000</span>
+                    <i class="fas fa-eye eye-btn" id="eye-icon" onclick="toggleBal()"></i>
+                </div>
+                <p class="acc-num">A/c No: Loading...</p>
+            </div>
+
+            <h3 class="dash-section-title centered-text">Elite Quick Actions</h3>
+            <div class="grid-layout">
+                <div class="card-item" onclick="openAction('transfer')"><i
+                        class="fas fa-exchange-alt"></i><span>Transfer</span></div>
+                <div class="card-item" onclick="openAction('recharge')"><i class="fas fa-bolt"></i><span>Recharge</span>
+                </div>
+                <div class="card-item" onclick="openAction('pin')"><i class="fas fa-key"></i><span>PIN Change</span>
+                </div>
+                <div class="card-item" onclick="openAction('mob')"><i class="fas fa-phone-flip"></i><span>Mob
+                        Update</span></div>
+                <div class="card-item" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i><span>PDF Bill</span>
+                </div>
+
+                <div class="card-item" onclick="showMyQR()"><i class="fas fa-qrcode"></i><span>My QR</span></div>
+                <div class="card-item" onclick="startScanner()"><i class="fas fa-camera"></i><span>Scan & Pay</span>
+                </div>
+
+                <div class="card-item" onclick="openSupport()"><i class="fas fa-headset"></i><span>Support</span></div>
+            </div>
+
+            <div class="history-box">
+                <h4>Live Account Activity</h4>
+                <div id="txn-list">
+                    <div class="txn-row"><span>🎁 Welcome Bonus</span><span class="txt-green">+ ₹50,000</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeM()">&times;</span>
+            <h2 id="authTitle">Secure Access</h2>
+            <div id="login-fields">
+                <input type="text" id="l-user" placeholder="Username">
+                <input type="password" id="l-pass" placeholder="Password">
+                <button class="btn-go" onclick="login()">Enter Vault</button>
+                <p class="switch-link" onclick="openAuth('reg')">New user? Register now</p>
+                <p class="switch-link" style="color: #ff1744; margin-top: 10px;" onclick="openSupport()">Account
+                    Blocked? Reactivate</p>
+            </div>
+            <div id="reg-fields" style="display: none;">
+                <input type="text" id="r-name" placeholder="Full Name">
+                <input type="text" id="r-user" placeholder="Username">
+                <input type="email" id="r-recovery" placeholder="Recovery Email">
+                <input type="password" id="r-pass" placeholder="Password">
+                <input type="number" id="r-pin" placeholder="4-Digit PIN">
+                <input type="number" id="r-phone" placeholder="Phone Number">
+                <button class="register-btn" onclick="register()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="support-modal" class="modal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeSupport()">&times;</span>
+            <h2>Account Support</h2>
+            <div id="support-step-1">
+                <input type="text" id="s-user" placeholder="Username">
+                <input type="email" id="s-recovery" placeholder="Recovery Email">
+                <button class="btn-go" onclick="sendOtp()">Send OTP</button>
+            </div>
+            <div id="support-step-2" style="display:none;">
+                <input type="number" id="s-otp" placeholder="Enter OTP">
+                <button class="btn-go" onclick="verifyOtp()">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="actionModal" class="modal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeM()">&times;</span>
+            <h2 id="a-title">Action</h2>
+            <div id="a-body"></div>
+            <button class="btn-go" id="a-btn">Confirm</button>
+        </div>
+    </div>
+
+    <div id="qr-modal" class="modal" style="display:none;">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeM()">&times;</span>
+            <h2 style="color: #1e3c72;">Your Payment QR</h2>
+            <div id="qrcode" style="display: flex; justify-content: center; margin: 20px 0;"></div>
+            <p id="qr-label" style="font-weight: bold; color: #333;"></p>
+            <button class="btn-go" onclick="window.print()">Download QR</button>
+        </div>
+    </div>
+
+    <div id="scanner-modal" class="modal" style="display:none;">
+        <div class="modal-box">
+            <span class="close-btn" onclick="stopScanner()">&times;</span>
+            <h2 style="color: #1e3c72; margin-bottom: 15px;">Scan to Pay</h2>
+            <div id="reader" style="width: 100%; border-radius: 15px; overflow: hidden;"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
